@@ -25,11 +25,13 @@ export default class Registration extends Component {
       isElEnded: false,
       voterCount: undefined,
       voterName: "",
+      voterAge: "",
       voterPhone: "",
       voters: [],
       currentVoter: {
         address: undefined,
         name: null,
+        age: null,
         phone: null,
         hasVoted: false,
         isVerified: false,
@@ -96,6 +98,7 @@ export default class Registration extends Component {
         this.state.voters.push({
           address: voter.voterAddress,
           name: voter.name,
+          age: voter.age,
           phone: voter.phone,
           hasVoted: voter.hasVoted,
           isVerified: voter.isVerified,
@@ -112,6 +115,7 @@ export default class Registration extends Component {
         currentVoter: {
           address: voter.voterAddress,
           name: voter.name,
+          age: voter.age,
           phone: voter.phone,
           hasVoted: voter.hasVoted,
           isVerified: voter.isVerified,
@@ -132,9 +136,12 @@ export default class Registration extends Component {
   updateVoterPhone = (event) => {
     this.setState({ voterPhone: event.target.value });
   };
+  updateVoterAge = (event) => {
+    this.setState({ voterAge: event.target.value });
+  };
   registerAsVoter = async () => {
     await this.state.ElectionInstance.methods
-      .registerAsVoter(this.state.voterName, this.state.voterPhone)
+      .registerAsVoter(this.state.voterName,this.state.voterAge, this.state.voterPhone)
       .send({ from: this.state.account, gas: 1000000 });
     window.location.reload();
   };
@@ -182,6 +189,18 @@ export default class Registration extends Component {
                         placeholder="eg. Ava"
                         value={this.state.voterName}
                         onChange={this.updateVoterName}
+                      />{" "}
+                    </label>
+                  </div>
+                  <div className="div-li">
+                    <label className={"label-r"}>
+                      Age
+                      <input
+                        className={"input-r"}
+                        type="number"
+                        placeholder="eg. 20"
+                        value={this.state.voterAge}
+                        onChange={this.updateVoterAge}
                       />{" "}
                     </label>
                   </div>
@@ -268,6 +287,10 @@ export function loadCurrentVoter(voter, isRegistered) {
             <td>{voter.name}</td>
           </tr>
           <tr>
+            <th>Age</th>
+            <td>{voter.age}</td>
+          </tr>
+          <tr>
             <th>Phone</th>
             <td>{voter.phone}</td>
           </tr>
@@ -301,6 +324,10 @@ export function loadAllVoters(voters) {
             <tr>
               <th>Name</th>
               <td>{voter.name}</td>
+            </tr>
+            <tr>
+              <th>Age</th>
+              <td>{voter.age}</td>
             </tr>
             <tr>
               <th>Phone</th>

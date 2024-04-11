@@ -7,28 +7,36 @@ const Footer = () => (
     <div className="footer-block"></div>
     <div className="footer">
       <div className="footer-container">
+        
         <p>
-          View this project on{" "}
+          Made By 
           <a
             className="profile"
-            href="https://github.com/arlbibek/dVoting"
+            href="https://github.com/paras"
             target="_blank"
             rel="noopener noreferrer"
           >
-            GitHub
+             Parasmani
           </a>
-          .
-        </p>
-        <p>
-          Made with <i className="fas fa-heartbeat" /> by{" "}
           <a
             className="profile"
-            href="https://arlbibek.github.io"
+            href="https://github.com/harsh"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Bibek Aryal
+            Harsh Sahu
           </a>
+          <a
+            className="profile"
+            href="https://github.com/Navendra26"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+             Navendra
+          </a>
+
+
+
           .
         </p>
       </div>

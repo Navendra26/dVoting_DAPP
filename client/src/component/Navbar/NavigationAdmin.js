@@ -9,7 +9,7 @@ export default function NavbarAdmin() {
     <nav>
       <div className="header">
         <NavLink to="/">
-          <i className="fab fa-hive" /> Admin
+        <i className="fas fa-user-cog"></i> Admin
         </NavLink>
       </div>
       <ul
@@ -18,17 +18,18 @@ export default function NavbarAdmin() {
       >
         <li>
           <NavLink to="/Verification" activeClassName="nav-active">
-            Verification
+          <i className="fas fa-check-circle"></i> Verification
           </NavLink>
         </li>
         <li>
           <NavLink to="/AddCandidate" activeClassName="nav-active">
-            Add Candidate
+          <i className="fas fa-user-plus"></i> Add Candidate
           </NavLink>
         </li>
         <li>
           <NavLink to="/Registration" activeClassName="nav-active">
-            <i className="far fa-registered" /> Registration
+          <i className="fas fa-user-edit"></i> Registration
+          
           </NavLink>
         </li>
         <li>

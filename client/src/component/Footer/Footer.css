@@ -1,38 +1,46 @@
-.footer,
-.footer-block {
-  padding: 11px;
-  height: 40px;
-  width: 100%;
-  overflow: auto;
-}
 .footer {
-  background-color: beige;
-  border-top: 1px solid #e7e7e7;
+  background: linear-gradient(to right, gray, black); /* Gradient background */
+  border-top: 2px solid #ccc; /* Slightly thicker border on top */
   text-align: center;
   position: fixed;
   left: 0;
   bottom: 0;
-  overflow: auto;
-}
-.footer-block {
-  display: block;
+  width: 100%; /* Full width */
+  padding: 20px 0; /* Added padding for better spacing */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  font-family: Arial, sans-serif; /* Specify font */
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+  z-index: 999; /* Ensure the footer stays on top */
+  transition: background 0.3s ease; /* Smooth transition for background color change */
 }
 
-a.profile {
-  color: #000;
-  text-decoration: underline;
+.footer:hover {
+  background: linear-gradient(to right, #2196F3, #9C27B0); /* Change gradient on hover */
 }
-a.profile:hover {
-  color: tomato;
-  text-decoration: underline;
-}
+
 .footer-container {
-  /* padding: 7px; */
-  width: 97%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  align-items: center;
-  justify-content: space-evenly;
+  width: 90%; /* Adjusted container width */
+  margin: 0 auto; /* Center the container */
   display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: center; /* Center content horizontally */
+}
+
+.footer-container p {
+  margin: 0; /* Remove default margin */
+}
+
+.footer-container a.profile {
+  color: #fff; /* White text color */
+  text-decoration: none; /* Removed underline */
+  margin: 0 10px; /* Add space between links */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.footer-container a.profile:hover {
+  color: #ff6347; /* Change color on hover */
+}
+
+.footer-block {
+  height: 20px; /* Reduced height of the block */
 }

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+//import { Buffer } from "buffer";
+
 import Navbar from "../../Navbar/Navigation";
 import NavbarAdmin from "../../Navbar/NavigationAdmin";
 
@@ -8,7 +10,24 @@ import Election from "../../../contracts/Election.json";
 
 import AdminOnly from "../../AdminOnly";
 
+import { create } from "ipfs-http-client";
+// const ipfsClient = require("ipfs-http-client");
 import "./AddCandidate.css";
+
+const projectId = "28LuNAotbXzcvtpOcE9F8ayKOeP";
+const projectSecret = "3de3d9c099c6c0c168e39b8bc03e2f7a";
+
+const auth = "Basic " + btoa(`${projectId}:${projectSecret}`);
+const client = create({
+  host: "ipfs.infura.io",
+  port: 5001,
+  protocol: "https",
+  apiPath: "/api/v0",
+  headers: {
+    authorization: auth,
+  },
+});
+
 
 export default class AddCandidate extends Component {
   constructor(props) {
@@ -20,6 +39,8 @@ export default class AddCandidate extends Component {
       isAdmin: false,
       header: "",
       slogan: "",
+      file: undefined,
+      ipfsHash: "",
       candidates: [],
       candidateCount: undefined,
     };
@@ -74,6 +95,7 @@ export default class AddCandidate extends Component {
           id: candidate.candidateId,
           header: candidate.header,
           slogan: candidate.slogan,
+          ipfsHash: candidate.ipfsHash,
         });
       }
 
@@ -93,10 +115,43 @@ export default class AddCandidate extends Component {
     this.setState({ slogan: event.target.value });
   };
 
+  //added
+  retrieveFile = (e) => {
+    const data = e.target.files[0];
+    if (!data) {
+      console.warn("No file selected for upload.");
+      return; // Early exit if no file
+    }  
+    const reader = new window.FileReader();
+    //reader.readAsArrayBuffer(data);
+    reader.onloadend = () => {
+      // Here, we create a new Uint8Array from the ArrayBuffer
+      const buffer = new Uint8Array(reader.result);
+      // Update the state with the buffer
+      this.setState({ file: data, fileBuffer: buffer });
+    };
+    
+    reader.readAsArrayBuffer(data);
+    e.preventDefault();
+  };
+
+  handleUpload = async (e) => {
+    e.preventDefault();
+
+    try {
+      const created = await client.add(this.state.file);
+      //const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+      this.setState({ ipfsHash: created.path });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   addCandidate = async () => {
     await this.state.ElectionInstance.methods
-      .addCandidate(this.state.header, this.state.slogan)
+      .addCandidate(this.state.header, this.state.slogan, this.state.ipfsHash)
       .send({ from: this.state.account, gas: 1000000 });
+    this.setState({ ipfsHash: "" });
     window.location.reload();
   };
 
@@ -145,6 +200,33 @@ export default class AddCandidate extends Component {
                   onChange={this.updateSlogan}
                 />
               </label>
+              <label className={"label-ac"}>
+                Candidate Image
+                <input
+                  className={"input-ac"}
+                  type="file"
+                  onChange={this.retrieveFile}
+                />
+              </label>
+              <input
+                  type="button"
+                  className="button"
+                  onClick={this.handleUpload}
+                  value="Upload"
+              >                  
+              </input>
+
+              <div className="display">
+                {this.state.ipfsHash.length !== 0 && (
+                  <img
+                    src={`https://ipfs.infura.io/ipfs/${this.state.ipfsHash}`}
+                    width={100}
+                    height={100}
+                    alt=""
+                  />
+                )}
+              </div>
+
               <button
                 className="btn-add"
                 disabled={
@@ -175,6 +257,14 @@ export function loadAdded(candidates) {
           >
             {candidate.id}. <strong>{candidate.header}</strong>:{" "}
             {candidate.slogan}
+          </div>
+          <div className="display">
+            <img
+              src={`https://ipfs.infura.io/ipfs/${candidate.ipfsHash}`}
+              width={100}
+              height={100}
+              alt=""
+            />
           </div>
         </div>
       </>

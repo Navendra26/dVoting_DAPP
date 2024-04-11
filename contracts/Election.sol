@@ -29,6 +29,7 @@ contract Election {
     }
     // Modeling a candidate
     struct Candidate {
+        string ipfsHash;
         uint256 candidateId;
         string header;
         string slogan;
@@ -37,7 +38,7 @@ contract Election {
     mapping(uint256 => Candidate) public candidateDetails;
 
     // Adding new candidates
-    function addCandidate(string memory _header, string memory _slogan)
+    function addCandidate(string memory _header, string memory _slogan, string memory _ipfsHash)
         public
         // Only admin can add
         onlyAdmin
@@ -47,6 +48,7 @@ contract Election {
                 candidateId: candidateCount,
                 header: _header,
                 slogan: _slogan,
+                ipfsHash: _ipfsHash,
                 voteCount: 0
             });
         candidateDetails[candidateCount] = newCandidate;
@@ -117,6 +119,7 @@ contract Election {
     struct Voter {
         address voterAddress;
         string name;
+        string age;
         string phone;
         bool isVerified;
         bool hasVoted;
@@ -126,11 +129,12 @@ contract Election {
     mapping(address => Voter) public voterDetails;
 
     // Request to be added as voter
-    function registerAsVoter(string memory _name, string memory _phone) public {
+    function registerAsVoter(string memory _name,string memory _age, string memory _phone) public {
         Voter memory newVoter =
             Voter({
                 voterAddress: msg.sender,
                 name: _name,
+                age: _age,
                 phone: _phone,
                 hasVoted: false,
                 isVerified: false,

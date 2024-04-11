@@ -1,8 +1,12 @@
 {
   "name": "client",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.24.4",
+    "buffer": "^6.0.3",
+    "ipfs-http-client": "^50.1.2",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-file-reader": "^1.1.4",

@@ -1,72 +1,58 @@
 * {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Roboto', sans-serif; /* Changed font to Roboto */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 li {
   list-style-type: none;
 }
+
 a {
   text-decoration: none;
   color: white;
 }
+
 nav {
   display: flex;
-  height: 11vh;
-  background: tomato;
-  justify-content: space-around;
+  height: 80px;
+  background: linear-gradient(to right, #4CAF50, #64B5F6);
+  justify-content: space-between;
   position: sticky;
   top: 0;
   align-items: center;
+  padding: 0 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 nav .header {
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
+  color: white;
+  transition: color 0.3s ease;
 }
+
 nav .header:hover {
   cursor: pointer;
+  color: #F9A825;
 }
+
 nav .navbar-links {
   display: flex;
   justify-content: space-around;
-  width: 70%;
-  cursor: pointer;
+  width: 50%;
 }
+
 nav .navbar-links a {
   font-size: 17px;
   font-weight: normal;
-  cursor: pointer;
   text-transform: capitalize;
-}
-nav .navbar-links a:hover {
-  cursor: pointer;
-  color: black;
-}
-nav .burger-menu {
-  font-size: 24px;
   color: white;
-  cursor: pointer;
-  display: none;
-}
-.nav-active {
-  color: black;
+  transition: color 0.3s ease;
 }
 
-@media all and (max-width: 777px) {
-  nav .burger-menu {
-    display: block;
-  }
-  nav .navbar-links {
-    background-color: tomato;
-    display: block;
-    width: 50%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    padding: 0px;
-    transform: translate(-700px);
-  }
-  nav .navbar-links li {
-    padding: 25px;
-    border-top: 3px solid white;
-  }
+nav .navbar-links a:hover {
+  color: #F9A825; /* Change link color on hover */
 }

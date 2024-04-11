@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav>
       <NavLink to="/" className="header">
-        <i className="fab fa-hive"></i> Home
+        <i className="fas fa-home"></i> Home
       </NavLink>
       <ul
         className="navbar-links"
@@ -16,7 +16,7 @@ export default function Navbar() {
       >
         <li>
           <NavLink to="/Registration" activeClassName="nav-active">
-            <i className="far fa-registered" /> Registration
+            <i className="fas fa-user-plus" /> Registration
           </NavLink>
         </li>
         <li>

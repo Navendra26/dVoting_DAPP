@@ -75,6 +75,7 @@ export default class Result extends Component {
           header: candidate.header,
           slogan: candidate.slogan,
           voteCount: candidate.voteCount,
+          ipfsHash: candidate.ipfsHash,
         });
       }
 
@@ -155,8 +156,16 @@ function displayWinner(candidates) {
       <div className="container-winner">
         <div className="winner-info">
           <p className="winner-tag">Winner!</p>
-          <h2> {winner.header}</h2>
-          <p className="winner-slogan">{winner.slogan}</p>
+          <div style={{display:"flex",}}>
+            <img
+                src={`https://ipfs.infura.io/ipfs/${winner.ipfsHash}`}
+                width={100}
+                height={100}
+                alt=""
+              />
+            <h2> {winner.header}</h2>
+            <p className="winner-slogan">{winner.slogan}</p>
+          </div>
         </div>
         <div className="winner-votes">
           <div className="votes-tag">Total Votes: </div>
@@ -176,6 +185,7 @@ export function displayResults(candidates) {
         <td>{candidate.id}</td>
         <td>{candidate.header}</td>
         <td>{candidate.voteCount}</td>
+        
       </tr>
     );
   };

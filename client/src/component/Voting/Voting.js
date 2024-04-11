@@ -29,7 +29,9 @@ export default class Voting extends Component {
       currentVoter: {
         address: undefined,
         name: null,
+        age: null,
         phone: null,
+        img: undefined,
         hasVoted: false,
         isVerified: false,
         isRegistered: false,
@@ -86,6 +88,7 @@ export default class Voting extends Component {
           id: candidate.candidateId,
           header: candidate.header,
           slogan: candidate.slogan,
+          img: candidate.ipfsHash,
         });
       }
       this.setState({ candidates: this.state.candidates });
@@ -98,6 +101,7 @@ export default class Voting extends Component {
         currentVoter: {
           address: voter.voterAddress,
           name: voter.name,
+          age: voter.age,
           phone: voter.phone,
           hasVoted: voter.hasVoted,
           isVerified: voter.isVerified,
@@ -137,10 +141,18 @@ export default class Voting extends Component {
     return (
       <div className="container-item">
         <div className="candidate-info">
+          <div style={{display:"flex"}}>
+          <img
+              src={`https://ipfs.infura.io/ipfs/${candidate.img}`}
+              width={100}
+              height={100}
+              alt=""
+            />
           <h2>
             {candidate.header} <small>#{candidate.id}</small>
           </h2>
           <p className="slogan">{candidate.slogan}</p>
+          </div>
         </div>
         <div className="vote-btn-container">
           <button
